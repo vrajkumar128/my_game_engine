@@ -3,9 +3,6 @@ pub mod ffi;
 #[macro_use]
 pub mod macros;
 
-// Re-export macros
-pub use crate::{spawn_sprite, on_key_press, tick, start_window_and_game_loop, move_sprite};
-
 #[cfg(test)]
 mod tests {
     use std::{thread, time::Duration};

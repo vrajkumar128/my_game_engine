@@ -1,4 +1,4 @@
-use std::os::raw::{c_char, c_int, c_float, c_void};
+use std::os::raw::{c_char, c_int, c_float};
 
 pub const GLFW_PRESS: c_int = 1;
 pub const GLFW_KEY_SPACE: c_int = 32;
@@ -19,7 +19,7 @@ pub struct Sprite {
 }
 
 // External function declarations
-extern "C" {
+unsafe extern "C" {
     fn create_game_window(title: *const c_char, width: c_int, height: c_int);
 
     fn create_sprite(x: c_float, y: c_float, width: c_int, height: c_int, 
