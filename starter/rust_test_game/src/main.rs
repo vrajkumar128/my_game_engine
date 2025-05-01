@@ -5,7 +5,7 @@ use my_game_engine::ffi::{clear, GLFW_KEY_SPACE};
 use my_game_engine::{on_key_press, spawn_sprite, start_window_and_game_loop};
 use network::{NetworkMessage, NetworkResponse, start_network_thread};
 use sprite_data::SpriteData;
-use std::sync::mpsc::{channel, Receiver, Sender};
+use std::sync::mpsc::{channel};
 
 fn main() {
     // Set up communication channels
