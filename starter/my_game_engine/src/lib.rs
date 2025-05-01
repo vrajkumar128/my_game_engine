@@ -5,11 +5,10 @@ pub mod macros;
 
 #[cfg(test)]
 mod tests {
-    use std::{thread, time::Duration};
+    use std::{thread::sleep, time::Duration};
     use crate::ffi::{
-        create_window, new_sprite, draw_sprite, update_window, clear, should_close,
-        is_key_pressed, set_sprite_position, GLFW_KEY_SPACE, GLFW_KEY_UP, GLFW_KEY_DOWN,
-        GLFW_KEY_LEFT, GLFW_KEY_RIGHT
+        new_sprite, clear, GLFW_KEY_SPACE, GLFW_KEY_UP, 
+        GLFW_KEY_DOWN, GLFW_KEY_LEFT, GLFW_KEY_RIGHT
     };
 
     // #[test]
@@ -103,7 +102,7 @@ mod tests {
     #[test]
     #[ignore]
     fn test_screen_clearing() {
-        let mut start_time = std::time::Instant::now();
+        let start_time = std::time::Instant::now();
         let switch_time = Duration::from_secs(5);
         let mut showing_red = true;
         
@@ -112,9 +111,7 @@ mod tests {
             800,
             600,
             16,
-            {
-                start_time = std::time::Instant::now();
-            },
+            {},
             {
                 clear();
                 if showing_red && start_time.elapsed() >= switch_time {
@@ -224,14 +221,29 @@ mod tests {
                     right_pressed = true;
                 });
                 
-                let red = if space_pressed { 255 } else { 0 };
-                let green = if up_pressed && down_pressed { 255 } else { 0 };
-                let blue = if left_pressed && right_pressed { 255 } else { 0 };
+                // Create a different colored sprite for each key press
+                if space_pressed {
+                    crate::spawn_sprite!(250.0, 150.0, 80, 80, 255, 0, 0);
+                }
                 
-                let _colored_sprite = crate::spawn_sprite!(350.0, 250.0, 100, 100, red, green, blue);
+                if up_pressed {
+                    crate::spawn_sprite!(350.0, 150.0, 80, 80, 0, 255, 0);
+                }
+                
+                if down_pressed {
+                    crate::spawn_sprite!(450.0, 150.0, 80, 80, 0, 0, 255);
+                }
+                
+                if left_pressed {
+                    crate::spawn_sprite!(300.0, 250.0, 80, 80, 255, 255, 0);
+                }
+                
+                if right_pressed {
+                    crate::spawn_sprite!(400.0, 250.0, 80, 80, 255, 0, 255);
+                }
                 
                 if space_pressed && up_pressed && down_pressed && left_pressed && right_pressed {
-                    std::thread::sleep(Duration::from_secs(2));
+                    // sleep(std::time::Duration::from_secs(2));
                     break;
                 }
             },
@@ -265,15 +277,14 @@ mod tests {
         let mut x = 100.0;
         let y = 300.0;
         let speed = 2.0;
+        let sprite = new_sprite(100.0, 300.0, 50, 50, 0, 0, 255);
         
         crate::start_window_and_game_loop!(
             "Test Sprite Position Update",
             800,
             600,
             16,
-            {
-                let sprite = new_sprite(100.0, 300.0, 50, 50, 0, 0, 255);
-            },
+            {},
             {
                 clear();
                 x += speed;
