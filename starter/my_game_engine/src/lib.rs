@@ -5,7 +5,7 @@ pub mod macros;
 
 #[cfg(test)]
 mod tests {
-    use std::{thread::sleep, time::Duration};
+    use std::{time::Duration};
     use crate::ffi::{
         new_sprite, clear, GLFW_KEY_SPACE, GLFW_KEY_UP, 
         GLFW_KEY_DOWN, GLFW_KEY_LEFT, GLFW_KEY_RIGHT
